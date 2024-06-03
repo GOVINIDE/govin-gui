@@ -64,6 +64,7 @@ class DeviceLibrary extends React.PureComponent {
             });
     }
 
+
     requestLoadDevice (device) {
         const id = device.deviceId;
         const deviceType = device.type;

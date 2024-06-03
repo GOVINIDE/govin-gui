@@ -21,6 +21,8 @@ import programLanguageCppIconURL from './program-language-cpp.svg';
 import programLanguagePythonIconURL from './program-language-python.svg';
 import programLanguageMicroPythonIconURL from './program-language-microPython.svg';
 
+
+
 /* eslint-disable react/prefer-stateless-function */
 class LibraryItemComponent extends React.PureComponent {
     render () {

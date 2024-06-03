@@ -10,6 +10,11 @@ import tabStyles from 'react-tabs/style/react-tabs.css';
 import VM from 'openblock-vm';
 import Renderer from 'scratch-render';
 
+// added for arduino c
+import HardwareTest from '../../containers/hardware-test.jsx';
+import HardwareHeaderTest from '../../containers/hardware-header-test.jsx';
+// added for python
+import App from '../../containers/python-console.jsx';
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
 import TargetPane from '../../containers/target-pane.jsx';
@@ -44,6 +49,8 @@ import addExtensionIcon from './icon--extensions.svg';
 import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
+import progIcon from './icon-prog.svg';
+import pythonIcon from './icon--python.svg';
 
 const messages = defineMessages({
     addExtension: {
@@ -108,6 +115,8 @@ const GUIComponent = props => {
         onAbortUpdate,
         onActivateCostumesTab,
         onActivateSoundsTab,
+        onActivateArduinoTab,
+        onActivatePythonTab,
         onActivateTab,
         onClickLogo,
         onClickCheckUpdate,
@@ -129,6 +138,8 @@ const GUIComponent = props => {
         onTelemetryModalOptOut,
         showComingSoon,
         soundsTabVisible,
+        arduinoTabVisible,
+        pythonTabVisible,
         stageSizeMode,
         targetIsStage,
         telemetryModalVisible,
@@ -300,9 +311,7 @@ const GUIComponent = props => {
                                         />
                                     </Tab>
                                     <Tab
-                                        className={classNames(tabClassNames.tab,
-                                            isRealtimeMode ? styles.hideCustomAndSoundTab :
-                                                styles.showCustomAndSoundTab)}
+                                        className={tabClassNames.tab}
                                         onClick={onActivateCostumesTab}
                                     >
                                         <img
@@ -324,9 +333,7 @@ const GUIComponent = props => {
                                         )}
                                     </Tab>
                                     <Tab
-                                        className={classNames(tabClassNames.tab,
-                                            isRealtimeMode ? styles.hideCustomAndSoundTab :
-                                                styles.showCustomAndSoundTab)}
+                                        className={tabClassNames.tab}
                                         onClick={onActivateSoundsTab}
                                     >
                                         <img
@@ -337,6 +344,35 @@ const GUIComponent = props => {
                                             defaultMessage="Sounds"
                                             description="Button to get to the sounds panel"
                                             id="gui.gui.soundsTab"
+                                        />
+                                    </Tab>
+{/* CARES */}
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateArduinoTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={progIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="Text Programming"
+                                            description="Button to get to the Text Programming panel"
+                                            id="gui.gui.arduinoTab"
+                                        />
+                                    </Tab>
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivatePythonTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={pythonIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="Python"
+                                            description="Button to get to the Python panel"
+                                            id="gui.gui.pythonTab"
                                         />
                                     </Tab>
                                 </TabList>
@@ -379,6 +415,26 @@ const GUIComponent = props => {
                                         onShowMessageBox={onShowMessageBox}
                                     /> : null}
                                 </TabPanel>
+                                      {/* Arduino  Tab CARES */}
+                                      <TabPanel
+                                    className={tabClassNames.tabPanel}>
+                                    {arduinoTabVisible ? (
+                                        <>
+                                            <HardwareTest vm={vm} />
+                                            <HardwareHeaderTest vm={vm} />
+
+                                        </>
+                                    ) : null}
+                                </TabPanel>  
+                                   {/* python editor */}
+                                   <TabPanel
+                                    className={tabClassNames.tabPanel}>
+                                    {pythonTabVisible ? (
+                                        <>
+                                         <App vm={vm} />
+                                        </>
+                                    ) : null}
+                                </TabPanel>  
                             </Tabs>
                             {/*
                                     backpackVisible ? (
@@ -386,30 +442,39 @@ const GUIComponent = props => {
                                     ) : null
                                 */}
                         </Box>
-                        <Box
+
+
+                  <Box
                             className={classNames(styles.stageAndTargetWrapper, styles[stageSize],
-                                isRealtimeMode ? styles.showStage : styles.hideStage)}
+                                isRealtimeMode ? styles.showStage: styles.hideStage)}
                         >
-                            <StageWrapper
-                                isFullScreen={isFullScreen}
-                                isRendererSupported={isRendererSupported}
-                                isRtl={isRtl}
-                                stageSize={stageSize}
-                                vm={vm}
-                            />
-                            <Box className={styles.targetWrapper}>
-                                <TargetPane
+                            {((arduinoTabVisible === false)  && (pythonTabVisible==false)) ? ( //added by CARES to hide stage when clicked on arduino tab
+                                <StageWrapper
+                                    isFullScreen={isFullScreen}
+                                    isRendererSupported={isRendererSupported}
+                                    isRtl={isRtl}
                                     stageSize={stageSize}
                                     vm={vm}
-                                />
+                                />) : null
+                            }
+                            <Box className={styles.targetWrapper}>
+                                {((arduinoTabVisible === false) && (pythonTabVisible==false)) ? 
+                                ( //added by CARES to hide target pan when clicked on arduino tab
+                                    <TargetPane
+                                        stageSize={stageSize}
+                                        vm={vm}
+                                    />) : null
+                                }
                             </Box>
                         </Box>
-                        {(isRealtimeMode === false) ? (
+
+                        {/* code for realtime button */}
+                        {((isRealtimeMode === false) && (arduinoTabVisible === false) && (pythonTabVisible==false)) ? ( //added by CARES to hide buttions above code editor when clicked on arduino tab
                             <HardwareHeader
                                 vm={vm}
                             />) : null
                         }
-                        {((isRealtimeMode === false) && (stageSizeMode !== STAGE_SIZE_MODES.hide)) ? (
+                        {((isRealtimeMode === false) && (stageSizeMode !== STAGE_SIZE_MODES.hide) && ((arduinoTabVisible === false) && (pythonTabVisible==false))) ? ( //added by CARES to hide code editor when clicked on arduino tab
                             <Hardware
                                 vm={vm}
                             />) : null
@@ -457,6 +522,8 @@ GUIComponent.propTypes = {
     logo: PropTypes.string,
     onActivateCostumesTab: PropTypes.func,
     onActivateSoundsTab: PropTypes.func,
+    onActivateArduinoTab: PropTypes.func,
+    onActivatePythonTab: PropTypes.func,
     onActivateTab: PropTypes.func,
     onClickAccountNav: PropTypes.func,
     onClickLogo: PropTypes.func,
@@ -485,6 +552,8 @@ GUIComponent.propTypes = {
     renderLogin: PropTypes.func,
     showComingSoon: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
+    arduinoTabVisible: PropTypes.bool,
+    pythonTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
     telemetryModalVisible: PropTypes.bool,

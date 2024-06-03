@@ -71,12 +71,12 @@ const StageHeaderComponent = function (props) {
         const stageButton = showBranding ? (
             <div className={styles.embedScratchLogo}>
                 <a
-                    href="https://openblock.cc"
+                    href="https://cares.goa.gov.in/"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
                     <img
-                        alt="OpenBlock"
+                        alt="GoVin"
                         src={scratchLogo}
                     />
                 </a>

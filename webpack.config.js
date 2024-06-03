@@ -188,6 +188,21 @@ module.exports = [
             new CopyWebpackPlugin([{
                 from: 'extension-worker.{js,js.map}',
                 context: 'node_modules/openblock-vm/dist/web'
+            }]),
+            new CopyWebpackPlugin([{
+                from: 'src/lib/brython.js',
+                to: 'lib/',
+                transform(content, path) {
+                    return content.toString('utf-8').replace(/\/\*# sourceMappingURL=.* \*\/$/, '');
+                  },
+            }]),
+
+            new CopyWebpackPlugin([{
+                from: 'src/lib/brython_stdlib.js',
+                to: 'lib/',
+                transform(content, path) {
+                    return content.toString('utf-8').replace(/\/\*# sourceMappingURL=.* \*\/$/, '');
+                  },
             }])
         ])
     })

@@ -529,7 +529,7 @@ class MenuBar extends React.Component {
                 <div className={styles.mainMenu}>
                     <div className={classNames(styles.menuBarItem)}>
                         <img
-                            alt="OpenBlock"
+                            alt="GoVin"
                             className={classNames(styles.scratchLogo, {
                                 [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
                             })}
@@ -822,7 +822,7 @@ class MenuBar extends React.Component {
                             src={uploadFirmwareIcon}
                         />
                         <FormattedMessage
-                            defaultMessage="Upload firmware"
+                            defaultMessage="Upload Firmware"
                             description="Button to upload the realtime firmware"
                             id="gui.menuBar.uploadFirmware"
                         />
@@ -852,7 +852,7 @@ class MenuBar extends React.Component {
                             checkedIcon={
                                 <div className={styles.modeSwitchUpload}>
                                     <FormattedMessage
-                                        defaultMessage="Upload"
+                                        defaultMessage="Program"
                                         description="Button to switch to realtime mode"
                                         id="gui.menu-bar.modeSwitchRealtimeUpload"
                                     />

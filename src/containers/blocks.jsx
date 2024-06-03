@@ -183,6 +183,10 @@ class Blocks extends React.Component {
 
         // If program mode changed, call functio to update the toolbox
         if (this.props.isRealtimeMode !== this._programMode) {
+            if (this.props.isRealtimeMode === false) {
+                // Do not update code before toolbox is updated.
+                this._toolboxUpdating = true;
+            }
             // Clear possible errors witch print in to code editor.
             this.props.onSetCodeEditorValue('');
             this.onProgramModeUpdate();
@@ -251,11 +255,6 @@ class Blocks extends React.Component {
             });
     }
     onProgramModeUpdate () {
-        if (this.props.isRealtimeMode) {
-            this.ScratchBlocks.ProgramMode.setProgramMode(this.ScratchBlocks.ProgramMode.REALTIME);
-        } else {
-            this.ScratchBlocks.ProgramMode.setProgramMode(this.ScratchBlocks.ProgramMode.UPLOAD);
-        }
         this._programMode = this.props.isRealtimeMode;
         const toolboxXML = this.getToolboxXML();
         if (toolboxXML) {

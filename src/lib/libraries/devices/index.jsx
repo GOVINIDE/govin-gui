@@ -7,6 +7,8 @@ import {DeviceType} from '../../device';
 
 import arduinoBaseToolBox from './baseToolbox/arduino';
 import microbitBaseToolBox from './baseToolbox/microbit';
+//CARES
+import microPythonBaseToolBox from './baseToolbox/microPython'; //cares
 
 import unselectDeviceIconURL from './unselectDevice/unselectDevice.png';
 
@@ -57,6 +59,11 @@ import raspberryPiPicoConnectionSmallIconURL from './raspberryPiPico/raspberryPi
 import makeymakeyIconURL from './makeymakey/makeymakey.png';
 import makeymakeyConnectionIconURL from './makeymakey/makeymakey-illustration.svg';
 import makeymakeyConnectionSmallIconURL from './makeymakey/makeymakey-small.svg';
+
+//CARES
+import esp32micropythonIconURL from './espmicropython/esp32micropython.png';
+import esp32micropythonConnectionIconURL from './espmicropython/esp32micropython-illustration.svg';
+import esp32micropythonConnectionSmallIconURL from './espmicropython/esp32micropython-small.svg';
 
 const deviceData = [
     /**
@@ -530,6 +537,46 @@ const deviceData = [
         tags: ['arduino'],
         helpLink: 'https://makeymakey.com'
     },
+
+    {//cares
+        name: 'ESP Micropython',
+        deviceId: 'esp32microPython',
+        manufactor: 'arduino.cc',
+        leanMore: 'https://store.arduino.cc/usa/arduino-uno-rev3',
+        type: DeviceType.microPython,
+        iconURL: esp32micropythonIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="A great board to get started with electronics and coding."
+                description="Description for the ESP32 Device"
+                id="gui.device.esp32microPython.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        bluetoothRequired: false,
+        serialportRequired: true,
+        defaultBaudRate: '115200',
+        internetConnectionRequired: false,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: esp32micropythonConnectionIconURL,
+        connectionSmallIconURL: esp32micropythonConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting"
+                description="Message to help people connect to their arduino."
+                id="gui.device.esp32microPython.connectingMessage"
+            />
+        ),
+        baseToolBoxXml: microPythonBaseToolBox,
+        programMode: ['realtime', 'upload'],
+        programLanguage: ['block','microPython'],
+        tags: ['microPython'],
+        helpLink: 'https://store.arduino.cc/usa/-uno-rev3'
+    },
+    
+
     /**
      * For those parent devices that exist in VM but are not displayed in GUI
      */

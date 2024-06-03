@@ -77,7 +77,7 @@ const BrowserModal = ({intl, ...props}) => {
                                 previewFaqLink: (
                                     <a
                                         className={styles.faqLink}
-                                        href="//openblock.cc/faq"
+                                        href="https://cares.goa.gov.in"
                                     >
                                         <FormattedMessage
                                             defaultMessage="FAQ"
