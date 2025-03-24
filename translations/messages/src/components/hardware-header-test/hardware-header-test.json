@@ -1,0 +1,17 @@
+[
+  {
+    "id": "gui.hardwareHeader.upload",
+    "description": "Button to upload program",
+    "defaultMessage": "Upload"
+  },
+  {
+    "id": "gui.hardwareHeader.save",
+    "description": "Button to run program",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "gui.hardwareHeader.open",
+    "description": "Button to open a saved program",
+    "defaultMessage": "Load from Computer"
+  }
+]
